@@ -1,0 +1,25 @@
+{
+  "name": "pulo-client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "sergey",
+    "dev": "sergey --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hilmanski/pulodev-web.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hilmanski/pulodev-web/issues"
+  },
+  "homepage": "https://github.com/hilmanski/pulodev-web#readme",
+  "dependencies": {
+    "sergey": "0.0.13"
+  }
+}
