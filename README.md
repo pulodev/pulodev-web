@@ -1,6 +1,8 @@
 # PuloWEb
 Website puloDev, kumpulan konten developer Indonesia
 
+Temporary domain - https://pulodev-web.netlify.app/
+
 # Tool
 - Vanilla Javascript, tanpa framework
 - Develop dengan [sergey](https://sergey.cool/) , minimal SSG/templating untuk "DRY"
