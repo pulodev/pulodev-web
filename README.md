@@ -6,5 +6,9 @@ Website puloDev, kumpulan konten developer Indonesia
 - Develop dengan [sergey](https://sergey.cool/) , minimal SSG/templating untuk "DRY"
 - timeago (human readbale time)
 
-# Run
+# Dev
 npm run dev
+
+# Info
+- Edit file yang ada di root /web jangan sentuh langsung yang ada di /web/public
+- File yang dihost /web/public
