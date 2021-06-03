@@ -6,6 +6,12 @@ body {
   width: 80%;
   margin: 20px auto;
   font-family: sans-serif;
+  color: #0F0F0F;
+  font-size: 18px;
+}
+
+a{
+  color: #0F0F0F;
 }
 
 header {
@@ -19,6 +25,23 @@ header {
 }
 #logo:hover {
    transform: rotate(-20deg);
+}
+
+nav{
+  padding: 10px;
+  border-top: 1px solid grey;
+  border-bottom: 1px solid grey;
+  margin-bottom: 20px;
+}
+
+nav a {
+ width: 80px;
+ display: inline-block; 
+ text-decoration: none;
+}
+
+nav a:hover{
+  font-weight: bold;
 }
 
 h1{
@@ -35,6 +58,18 @@ h2{
 
 main div{
   margin-bottom: 15px;
+}
+
+main a:hover{
+  color: #3C7FD0;
+}
+
+main a:visited{
+  color: #2E5F9A;
+}
+
+.is-grey{
+  color: #3F3F3F;
 }
 
 #loader {

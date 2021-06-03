@@ -23,12 +23,10 @@
 	</div>
 </header>
 	
-	<nav>
-		<a href="/">/Konten</a>
-		<a href="/tentang.html">/Tentang</a>
-	</nav>
-
-	<br><hr><br>
+<nav>
+	<a href="/">/Konten</a>
+	<a href="/tentang.html">/Tentang</a>
+</nav>
 
 	<div>
 		Filter:
@@ -53,7 +51,7 @@
 	
 	<script src="https://unpkg.com/timeago.js@4.0.2/dist/timeago.min.js"></script>
 	<script>
-		const BASE_API_URL = "https://puloapi-beta.netlify.app/.netlify/functions"
+		const BASE_API_URL = "https://api.pulo.dev/v1"
 
 		//custom selector
 		function $(el) {
@@ -109,7 +107,7 @@
 			return `
 				<div>
 					<p> <a href="${item.url}" target="_blank"> ${item.title} </a> ${owner} </p>
-					<p><small> [${item.media}] dimasukkan oleh ${item.contributor}, ${createdAt} </small></p>
+					<p class="is-grey"><small> [${item.media}] dimasukkan oleh ${item.contributor}, ${createdAt} </small></p>
 				</div>	
 			`
 		}
