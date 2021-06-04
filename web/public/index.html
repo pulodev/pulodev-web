@@ -107,10 +107,8 @@ function $(el) {
 
 			if(item.owner != "" || item.owner != null) 
 				owner = ' - ' + item.owner
-
-			let snippet = ''
-			if(item.body != '')
-				snippet = createSnippet(item.body)
+			
+			let snippet = createSnippet(item.body)
 
 			return `
 				<div>
