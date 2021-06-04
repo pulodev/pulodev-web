@@ -121,7 +121,7 @@
 			
 			//Load contribtor name from LocalStorage
 			$('#source-form').querySelector('#contributor_input').value 
-					= 
+					= window.localStorage.getItem('contributor') ?? ''
 			$('#content-form').querySelector('#contributor_input').value 
 					= window.localStorage.getItem('contributor') ?? ''
 
