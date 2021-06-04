@@ -71,7 +71,9 @@
 			if(item.owner != "" || item.owner != null) 
 				owner = ' - ' + item.owner
 
-			let snippet = createSnippet(item.body)
+			let snippet = ''
+			if(item.body != '')
+				snippet = createSnippet(item.body)
 
 			return `
 				<div>
@@ -83,7 +85,7 @@
 		}
 
 		function createSnippet(text) {
-			return (text.length > 100) ? text.substring(0, 100) + '...' : ''
+			return (text.length > 100) ? text.substring(0, 100) + '...' : text
 		}
 
 		//On bottom scroll, load more
