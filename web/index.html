@@ -33,22 +33,7 @@
 	
 	<script src="https://unpkg.com/timeago.js@4.0.2/dist/timeago.min.js"></script>
 	<script>
-		const BASE_API_URL = "https://api.pulo.dev/v1"
-
-		//custom selector
-		function $(el) {
-		    const type = el.charAt(0)
-		    switch (type) {
-		        case "#":
-		            return document.querySelector(el)
-		            break;
-		        case ".":
-		            return document.querySelectorAll(el)
-		            break;
-		        default:
-		            return document.getElementsByTagName(el)
-		    }
-		} //main js files
+		<sergey-import src="mainjs" />
 
 		const parentEl = $('main')[0]
 		let filter_media = '*'	

@@ -26,6 +26,7 @@
 <nav>
 	<a href="/">/Konten</a>
 	<a href="/tentang.html">/Tentang</a>
+	<a href="/submit.html">/Kontribusi</a>
 	<a href="/api.html">/API</a>
 </nav>
 
@@ -53,21 +54,23 @@
 	<script src="https://unpkg.com/timeago.js@4.0.2/dist/timeago.min.js"></script>
 	<script>
 		const BASE_API_URL = "https://api.pulo.dev/v1"
+//const BASE_API_URL = "http://localhost:8888/.netlify/functions"
 
-		//custom selector
-		function $(el) {
-		    const type = el.charAt(0)
-		    switch (type) {
-		        case "#":
-		            return document.querySelector(el)
-		            break;
-		        case ".":
-		            return document.querySelectorAll(el)
-		            break;
-		        default:
-		            return document.getElementsByTagName(el)
-		    }
-		} //main js files
+//custom selector
+function $(el) {
+    const type = el.charAt(0)
+    switch (type) {
+        case "#":
+            return document.querySelector(el)
+            break;
+        case ".":
+            return document.querySelectorAll(el)
+            break;
+        default:
+            return document.getElementsByTagName(el)
+    }
+} //main js files
+
 
 		const parentEl = $('main')[0]
 		let filter_media = '*'	

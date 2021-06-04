@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+	<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/assets/css/style.css" />
+<title> Submit konten ke PuloDev </title>
+<meta name="description" content='Submit konten ke PuloDev Kumpulan konten developer Indonesia'>
+</head>
+<body>
+
+	<header>
+	<a href="/">
+	<svg id="logo" width="77" height="66" viewBox="0 0 77 66" fill="none" xmlns="http://www.w3.org/2000/svg">
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M30.777 36.2449C40.8068 32.5135 46.6622 23.1503 44.0913 14.151C41.2734 4.28706 29.3994 -1.4044 17.5699 1.43874C3.8262 4.31782 -1.56481 14.583 1.25311 24.4469C1.32396 24.6949 1.40052 24.9402 1.48267 25.1829C1.56849 25.5281 1.66195 25.8781 1.76332 26.2329C5.52054 39.3847 17.0513 54.5814 23.741 52.9735C28.6652 51.79 31.2528 44.9947 30.777 36.2449Z" fill="#7AC88B"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M45.9033 29.9271C35.9337 33.7919 30.2273 43.2322 32.9406 52.1963C35.9146 62.0216 47.8775 67.5541 59.6607 64.5535C73.3573 61.4915 78.5851 51.1555 75.6111 41.3303C75.5363 41.0832 75.4558 40.8388 75.3698 40.5972C75.2786 40.2532 75.1796 39.9046 75.0726 39.5512C71.1074 26.4509 59.337 11.4096 52.6735 13.1064C47.7686 14.3555 45.289 21.1847 45.9033 29.9271Z" fill="#7AC88B"/>
+	</svg>
+	</a>
+
+	<div>
+		<h1>PuloDev [Beta]</h1>
+		<h2>Kumpulan konten developer Indonesia</h2>
+	</div>
+</header>
+	
+<nav>
+	<a href="/">/Konten</a>
+	<a href="/tentang.html">/Tentang</a>
+	<a href="/submit.html">/Kontribusi</a>
+	<a href="/api.html">/API</a>
+</nav>
+
+	<div class="is-grey">
+	<p>Yuk kumpulkan konten developer bareng-bareng</p>
+	<p> Di sini kamu bisa submit link atau langsung RSS (agar otomatis terupdate)</p>
+	</div>
+
+	<br>
+	<h3>Submit Konten</h3> <br>
+
+	<div id="option-form">
+		<p>Mau masukkan satu Link atau RSS langsung?</p>
+
+		<br>
+		<input type="radio" value="content" id="option_content" name="option" onclick="toggleForm(this);">
+		<label for="option_content">Satu Link</label>
+		<input type="radio" value="source" id="option_source" name="option" onclick="toggleForm(this);">
+		<label for="option_source">RSS</label>
+		<br><br>
+	</div>
+
+	<form id="source-form" style="display: none;" onsubmit="submitSource(event); return false;">
+		<div>
+			<label for="">Link RSS</label>
+		 	<input id="link_source" type="url" placeholder="masukkan link RSS" required="">
+		 </div>
+		
+		<div>
+			<label for="">Nama kamu</label>
+			<input type="text" name="contributor" id="contributor_input">
+			<small class="is-grey">(*sebagai kontributor)</small>
+		</div>	
+
+		<div>
+			<label for="">Judul</label>
+			<input type="text" name="title" required> <small class="is-grey">(*Nama rss, bebas)</small>
+		</div>	
+
+		<div>
+			<label for="">Media</label>
+			<select name="media">
+			  <option value="web">web</option>
+			  <option value="tulisan">tulisan</option>
+			  <option value="video">video</option>
+			  <option value="tool">tool</option>
+			  <option value="podcast">podcast</option>
+			</select>
+		</div>	
+
+		<button> Submit RSS </button>
+	</form>
+
+	<form id="preview-content-form" style="display: none;" onsubmit="fetchMetaContent(); return false;">
+		<input id="link_content" type="url" placeholder="masukkan link">
+
+		<button>Cek Link</button>
+	</form>
+	
+	<form id="content-form" style="display: none;" 
+					onsubmit="submitContent(event); return false;">
+		<div>
+			<label for="">Judul</label>
+			<input type="text" name="title">
+		</div>	
+
+		<div>
+			<label for="">Deksripsi</label>
+			<textarea name="body" cols="30" rows="3"></textarea>
+		</div>	
+
+		<div>
+			<label for="">Media</label>
+			<select name="media">
+			  <option value="web">web</option>
+			  <option value="tulisan">tulisan</option>
+			  <option value="video">video</option>
+			  <option value="tool">tool</option>
+			  <option value="podcast">podcast</option>
+			</select>
+		</div>	
+
+		<div>
+			<label for="">Tags</label>
+			<input type="text" name="tags">
+			<small class="is-grey"> *Pisahkan dengan koma (contoh: iOS, mobile, ...)</small>
+		</div>	
+
+		<div>
+			<label for="">Pemilik Konten</label>
+			<input type="text" name="owner">
+		</div>	
+
+		<div>
+			<label for="">Nama kamu</label>
+			<input type="text" name="contributor" id="contributor_input">
+			<small class="is-grey">(*sebagai kontributor)</small>
+		</div>	
+
+		<button> Submit Link </button>
+	</form>
+
+	<script>
+		const BASE_API_URL = "https://api.pulo.dev/v1"
+//const BASE_API_URL = "http://localhost:8888/.netlify/functions"
+
+//custom selector
+function $(el) {
+    const type = el.charAt(0)
+    switch (type) {
+        case "#":
+            return document.querySelector(el)
+            break;
+        case ".":
+            return document.querySelectorAll(el)
+            break;
+        default:
+            return document.getElementsByTagName(el)
+    }
+} //main js files
+ 
+
+
+		function toggleForm(radio) {
+			let active_form = (radio.value == 'content') 
+								? $('#preview-content-form') : $('#source-form')
+			
+			active_form.style.display = "block"
+			
+			//Load contribtor name from LocalStorage
+			$('#source-form').querySelector('#contributor_input').value 
+					= 
+			$('#content-form').querySelector('#contributor_input').value 
+					= window.localStorage.getItem('contributor') ?? ''
+
+			$('#option-form').style.display = "none"
+		}
+
+		var contentInfo = []
+		function fetchMetaContent() {
+			const URL = $('#link_content').value
+			fetch(`${BASE_API_URL}/content-meta`, { 
+					method: 'POST',
+					body: JSON.stringify({url:URL})
+				})	
+			  .then(response => response.json())
+			  .then(function(res){
+					if(res.errors != undefined) {
+						alert('cek lagi url kamu, pastikan valid')
+						return
+					}
+
+					$('#content-form').style.display = "block"
+					$('#preview-content-form').style.display = "none"
+
+					const inputsContent = $('#content-form').elements
+					inputsContent['title'].value = res.title
+					inputsContent['body'].value = res.body
+					inputsContent['tags'].value = res.tags
+					inputsContent['owner'].value = res.owner
+
+					//Assign other meta data not in form
+					contentInfo['publishDate'] = res.original_published_at
+					contentInfo['thumbnail'] = res.thumbnail
+					contentInfo['url'] = res.url
+			  });
+		}
+
+		function submitContent(ev) {
+			ev.preventDefault()
+
+			const inputsContent = $('#content-form').elements
+			const content = {
+			    title: inputsContent['title'].value,
+                body: inputsContent['body'].value,
+                owner: inputsContent['owner'].value,
+                media: inputsContent['media'].value,
+                tags: inputsContent['tags'].value,
+                contributor: inputsContent['contributor'].value,
+                thumbnail: contentInfo['thumbnail'],
+                url: contentInfo['url'],
+                original_published_at: contentInfo['publishDate']
+			}
+
+			fetch(`${BASE_API_URL}/contents`, { 
+					method: 'POST',
+					body: JSON.stringify({ content: content })
+				})	
+			  .then(response => response.json())
+			  .then(function(res){
+					if(res.errors != undefined) {
+						alert(res.errors)
+						return
+					}
+
+					//save contributor name at localstoreage
+					window.localStorage.setItem('contributor', inputsContent['contributor'].value);
+
+					alert('Berhasil submit! akan  kami review sebelum dipublish')
+					location.reload()
+				})
+		}
+
+		function submitSource(ev) {
+			ev.preventDefault()
+
+			const inputsSource = $('#source-form').elements
+
+			fetch(`${BASE_API_URL}/sources`, { 
+					method: 'POST',
+					body: JSON.stringify({
+						 source: {
+						 	url: inputsSource['link_source'].value,
+						 	contributor: inputsSource['contributor'].value,
+						 	title: inputsSource['title'].value,
+						 	media: inputsSource['media'].value
+						} 
+					})
+				})	
+			  .then(response => response.json())
+			  .then(function(res){
+					if(res.errors != undefined) {
+						alert(res.errors)
+						return
+					}
+
+					alert('Berhasil submit! akan  kami review sebelum dipublish')
+					location.reload()
+				})
+		}
+	</script>
+
+	<style>
+		form div {
+			margin-bottom:  20px;
+		}
+		label{ 
+			width: 100px;
+			display: inline-block;
+		}
+	</style>
+</body>
+</html>
+
