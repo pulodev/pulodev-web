@@ -154,15 +154,14 @@ function $(el) {
  
 
 		//Load contribtor name from LocalStorage
-		$('.contributor_input')[0].value = localStorage.getItem('contributor') ?? ''
-		$('.contributor_input')[1].value = localStorage.getItem('contributor') ?? ''
+		$('.contributor_input')[0].value = localStorage.getItem('contributor') ? localStorage.getItem('contributor') : ''
+		$('.contributor_input')[1].value = localStorage.getItem('contributor') ? localStorage.getItem('contributor') : ''
 
 		function toggleForm(item) {
-			let active_form = (item == 'content') 
-								? $('#preview-content-form') : $('#source-form')
-			
-			console.log(active_form)
-			active_form.style.display = "block"
+			if(item == 'content') 
+				$('#preview-content-form').style.display = "block"
+			else 
+				 $('#source-form').style.display = "block"
 
 			$('#option-form').style.display = "none"
 		}
