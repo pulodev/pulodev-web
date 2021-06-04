@@ -22,10 +22,14 @@
 		<p>Mau masukkan satu Link atau RSS langsung?</p>
 
 		<br>
-		<input type="radio" value="content" id="option_content" name="option" onclick="toggleForm(this);">
-		<label for="option_content">Satu Link</label>
-		<input type="radio" value="source" id="option_source" name="option" onclick="toggleForm(this);">
-		<label for="option_source">RSS</label>
+		<div onclick="toggleForm('content');">
+			<input type="radio" value="content" id="option_content" name="option">
+			<label for="option_content">Satu Link</label>
+		</div>
+		<div onclick="toggleForm('source');">
+			<input type="radio" value="source" id="option_source" name="option">
+			<label for="option_source">RSS</label>
+		</div>
 		<br><br>
 	</div>
 
@@ -116,8 +120,8 @@
 		$('.contributor_input')[0].value = localStorage.getItem('contributor') ?? ''
 		$('.contributor_input')[1].value = localStorage.getItem('contributor') ?? ''
 
-		function toggleForm(radio) {
-			let active_form = (radio.value == 'content') 
+		function toggleForm(item) {
+			let active_form = (item == 'content') 
 								? $('#preview-content-form') : $('#source-form')
 			
 			console.log(active_form)
