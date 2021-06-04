@@ -57,7 +57,7 @@
 		
 		<div>
 			<label for="">Nama kamu</label>
-			<input type="text" name="contributor" id="contributor_input">
+			<input type="text" name="contributor" class="contributor_input">
 			<small class="is-grey">(*sebagai kontributor)</small>
 		</div>	
 
@@ -122,7 +122,7 @@
 
 		<div>
 			<label for="">Nama kamu</label>
-			<input type="text" name="contributor" id="contributor_input">
+			<input type="text" name="contributor" class="contributor_input">
 			<small class="is-grey">(*sebagai kontributor)</small>
 		</div>	
 
@@ -149,18 +149,16 @@ function $(el) {
 } //main js files
  
 
+		//Load contribtor name from LocalStorage
+		$('.contributor_input')[0].value = localStorage.getItem('contributor') ?? ''
+		$('.contributor_input')[1].value = localStorage.getItem('contributor') ?? ''
 
 		function toggleForm(radio) {
 			let active_form = (radio.value == 'content') 
 								? $('#preview-content-form') : $('#source-form')
 			
+			console.log(active_form)
 			active_form.style.display = "block"
-			
-			//Load contribtor name from LocalStorage
-			$('#source-form').querySelector('#contributor_input').value 
-					= window.localStorage.getItem('contributor') ?? ''
-			$('#content-form').querySelector('#contributor_input').value 
-					= window.localStorage.getItem('contributor') ?? ''
 
 			$('#option-form').style.display = "none"
 		}
@@ -223,7 +221,7 @@ function $(el) {
 					}
 
 					//save contributor name at localstoreage
-					window.localStorage.setItem('contributor', inputsContent['contributor'].value);
+					localStorage.setItem('contributor', inputsContent['contributor'].value);
 
 					alert('Berhasil submit! akan  kami review sebelum dipublish')
 					location.reload()

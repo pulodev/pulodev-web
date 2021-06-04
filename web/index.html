@@ -71,12 +71,19 @@
 			if(item.owner != "" || item.owner != null) 
 				owner = ' - ' + item.owner
 
+			let snippet = createSnippet(item.body)
+
 			return `
 				<div>
 					<p> <a href="${item.url}" target="_blank"> ${item.title} </a> ${owner} </p>
+					<p><small> ${snippet}</small></p>
 					<p class="is-grey"><small> [${item.media}] dimasukkan oleh ${item.contributor}, ${createdAt} </small></p>
 				</div>	
 			`
+		}
+
+		function createSnippet(text) {
+			return (text.length > 100) ? text.substring(0, 100) + '...' : ''
 		}
 
 		//On bottom scroll, load more
