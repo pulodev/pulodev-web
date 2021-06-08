@@ -120,6 +120,9 @@ function $(el) {
 		}
 
 		function createSnippet(text) {
+			if(text == undefined || text == null) 
+				return ''
+
 			return (text.length > 100) ? text.substring(0, 100) + '...' : text
 		}
 
