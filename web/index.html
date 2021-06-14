@@ -73,9 +73,14 @@
 			
 			let snippet = createSnippet(item.body)
 
+			//if path is relative
+			let url = item.url
+			if(url.includes('http') == false)
+				url = 'https://' + url
+
 			return `
 				<div>
-					<p> <a href="${item.url}" target="_blank"> ${item.title} </a> ${owner} </p>
+					<p> <a href="${url}" target="_blank"> ${item.title} </a> ${owner} </p>
 					<p><small> ${snippet}</small></p>
 					<p class="is-grey"><small> [${item.media}] dimasukkan oleh ${item.contributor}, ${createdAt} </small></p>
 				</div>	
