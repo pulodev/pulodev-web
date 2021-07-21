@@ -5,13 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "cd web && sergey",
-    "dev": "cd web && sergey --watch"
+    "start": "minissg",
+    "dev": "minissg --watch"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "sergey": "0.0.13"
+    "mini-ssg": "^0.2.0"
   }
 }

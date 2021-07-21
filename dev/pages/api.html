@@ -1,0 +1,30 @@
+@layout(base)
+
+@section(title, API PuloDev Web)
+@section(desc, Informasi API tentang pulodev - Kumpulan konten developer Indonesia)
+
+@section(main)
+<h3>API Info</h3>
+
+<br>
+<p>Saat ini disediakan API untuk kamu gunakan secara umum,
+    silahkan mainkan dan buat sesuatu sesuai keinginanmu</p>
+
+<br>
+<h3>API (Read Only)</h3><br>
+<li>[Semua Konten]<br> https://api.pulo.dev/v1/contents </li>
+<li>[Filter halaman]<br> https://api.pulo.dev/v1/contents?page=NOMOR </li>
+<li>[Filter media: bisa "web, tulisan, podcast atau video"]<br> https://api.pulo.dev/v1/contents?media="$MEDIA"</li>
+<li>[Filter Text]<br> https://api.pulo.dev/v1/contents?query="$query"</li>
+
+<br>
+<h3>Beritahu Kami!</h3><br>
+<p>Jangan sungkan, mention kami di <a target="_blank" href="https://twitter.com/pulodev">twitter @pulodev</a> apa yang
+    kamu bikin</p>
+
+<style>
+    li {
+        margin-bottom: 10px;
+    }
+</style>
+@endsection

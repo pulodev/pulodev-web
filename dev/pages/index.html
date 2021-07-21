@@ -1,0 +1,141 @@
+@layout(base)
+
+@section(title, PuloDev Web)
+@section(desc, Kumpulan konten developer Indonesia)
+
+@section(main)
+<div>
+    Filter:
+    <input id="filter_text" type="text" placeholder="cari berdasarkan text">
+    <select name="media" id="filter_media">
+        <option value="semua">Semua Media</option>
+        <option value="tulisan">Tulisan</option>
+        <option value="podcast">Podcast</option>
+        <option value="video">Video</option>
+        <option value="web">Web</option>
+    </select>
+    <button onclick="filter()">Submit</button>
+</div>
+
+<br>
+
+<main>
+</main>
+<div id="loader"></div>
+<div id="status"></div>
+
+
+<script src="https://unpkg.com/timeago.js@4.0.2/dist/timeago.min.js"></script>
+<script>
+    @import(mainjs)
+
+    const parentEl = $('main')[0]
+    let filter_media = '*'
+    let filter_text = ''
+
+    fetchContent() //init load
+
+    function fetchContent(page = 1) {
+        const content_url = `${BASE_API_URL}/contents?page=${page}&query=${filter_text}&media=${filter_media}`
+
+        $('#loader').style.display = "block"
+
+        fetch(content_url)
+            .then(response => response.json())
+            .then(function (res) {
+                $('#loader').style.display = "none"
+                //show if empty result
+                $('#status').innerHTML = ''
+                if (res.data == null || res.data.length == 0) {
+                    $('#status').innerHTML = 'Tidak ada data lagi'
+                    return
+                }
+
+                res.data.forEach(function (item) {
+                    let contentEl = templateContent(item)
+                    parentEl.insertAdjacentHTML('beforeend', contentEl)
+                });
+            });
+    }
+
+    function templateContent(item) {
+        let owner = ''
+        let createdAt = timeago.format(item.created_at, 'ID')
+
+        if (item.owner != "" || item.owner != null)
+            owner = ' - ' + item.owner
+
+        let snippet = createSnippet(item.body)
+
+        //if path is relative
+        let url = item.url
+        if (url.includes('http') == false)
+            url = 'https://' + url
+
+        return `
+				<div>
+					<p> <a href="${url}" target="_blank"> ${item.title} </a> ${owner} </p>
+					<p><small> ${snippet}</small></p>
+					<p class="is-grey"><small> [${item.media}] dimasukkan oleh ${item.contributor}, ${createdAt} </small></p>
+				</div>	
+			`
+    }
+
+    function createSnippet(text) {
+        if (text == undefined || text == null)
+            return ''
+
+        return (text.length > 100) ? text.substring(0, 100) + '...' : text
+    }
+
+    //On bottom scroll, load more
+    window.onscroll = function (ev) {
+        if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
+            loadMore()
+        }
+    };
+
+    let page = 1
+    function loadMore() {
+        page += 1
+        fetchContent(page)
+    }
+
+
+    function filter() {
+        //reset index
+        window.scrollTo(0, 0)
+        parentEl.innerHTML = ''
+
+        filter_media = ($('#filter_media').value == 'semua')
+            ? '*' : $('#filter_media').value
+        filter_text = $('#filter_text').value
+
+        fetchContent(1)
+    }
+
+    //======================================================
+    //=========Human readbale time in ID for timeago pckg
+    //======================================================
+    var locale = function (number, index, totalSec) {
+        return [
+            ['baru saja', 'sebentar'],
+            ['%s detik yang lalu', 'dalam %s detik'],
+            ['1 menit yang lalu', 'dalam 1 menit'],
+            ['%s menit yang lalu', 'dalam %s menit'],
+            ['1 jam yang lalu', 'dalam 1 jam'],
+            ['%s jam yang lalu', 'dalam %s jam'],
+            ['1 hari yang lalu', 'dalam 1 hari'],
+            ['%s hari yang lalu', 'dalam %s hari'],
+            ['1 minggu yang lalu', 'dalam 1 minggu'],
+            ['%s minggu yang lalu', 'dalam %s minggu'],
+            ['1 bulan yang lalu', 'dalam 1 bulan'],
+            ['%s bulan yang lalu', 'dalam %s bulan'],
+            ['1 tahun yang lalu', 'dalam 1 tahun'],
+            ['%s tahun yang lalu', 'dalam %s tahun'],
+        ][index];
+    };
+    timeago.register('ID', locale);
+</script>
+
+@endsection
